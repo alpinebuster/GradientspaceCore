@@ -22,6 +22,7 @@ struct AxisBox2
 	AxisBox2();
 	AxisBox2(const Vector2<RealType>& MinCorner, const Vector2<RealType>& MaxCorner);
 	AxisBox2(const Vector2<RealType>& A, const Vector2<RealType>& B, const Vector2<RealType>& C);
+	AxisBox2(const Vector2<RealType>& Center, RealType SquareExtent);
 
 	//! Empty box is defined by min-corner being larger than max-corner
 	constexpr static AxisBox2 Empty() { return AxisBox2(Vector2<RealType>(RealMath<RealType>::SafeMaxExtent()), Vector2<RealType>(-RealMath<RealType>::SafeMaxExtent()) ); }
@@ -117,6 +118,13 @@ AxisBox2<RealType>::AxisBox2(const Vector2<RealType>& A, const Vector2<RealType>
 	Max.X = GS::Max3(A.X, B.X, C.X);
 	Min.Y = GS::Min3(A.Y, B.Y, C.Y);
 	Max.Y = GS::Max3(A.Y, B.Y, C.Y);
+}
+
+template<typename RealType>
+AxisBox2<RealType>::AxisBox2(const Vector2<RealType>& Center, RealType SquareExtent)
+{
+	Min = Vector2<RealType>(Center.X - SquareExtent, Center.Y - SquareExtent);
+	Max = Vector2<RealType>(Center.X + SquareExtent, Center.Y + SquareExtent);
 }
 
 

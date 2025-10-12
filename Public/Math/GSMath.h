@@ -31,6 +31,7 @@ struct RealConstants<float>
 
 	// TODO: get max-precision values for these? calculate in double and convert to float?
 	static constexpr float Pi() { return 3.14159265358979323846f; }
+	static constexpr float TwoPi() { return 2.0f * Pi(); }
 	static constexpr float RadToDeg() { return 180.0f / Pi(); }
 	static constexpr float DegToRad() { return Pi() / 180.0f; }
 
@@ -58,6 +59,7 @@ struct RealConstants<double>
 
 
 	static constexpr double Pi() { return 3.1415926535897932384626433832795; }
+	static constexpr double TwoPi() { return 2.0 * Pi(); }
 	static constexpr double RadToDeg() { return 180.0 / Pi(); }
 	static constexpr double DegToRad() { return Pi() / 180.0; }
 
