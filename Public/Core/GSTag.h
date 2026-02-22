@@ -30,10 +30,12 @@ struct GRADIENTSPACECORE_API GSTagSet
 			GSTag C;
 			GSTag D;
 		};
-		GSTag Tags[4] = { GSTag(), GSTag(), GSTag(), GSTag() };
+		GSTag Tags[4];
 	};
 
-	int NumTags = 0;
+	int NumTags;
+
+	GSTagSet() : Tags{ GSTag(), GSTag(), GSTag(), GSTag() }, NumTags(0) {}
 
 	bool AddTag(GSTag Tag, bool bUniqueType = false)
 	{

@@ -10,11 +10,11 @@
 #else   // ! GS_EMBEDDED_UE_BUILD
 
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
 	#ifdef GRADIENTSPACECORE_EXPORTS
 	#define GRADIENTSPACECORE_API __attribute__((visibility("default")))
 	#else
-	#define GRADIENTSPACECORE_API 
+	#define GRADIENTSPACECORE_API
 	#endif
 #else
 	#ifdef GRADIENTSPACECORE_EXPORTS
@@ -61,8 +61,11 @@
 #include <cstdint>
 
 
-// linux does not have memcpy_s so just forward to memcpy for now...
-#ifdef __linux__
-	#define memcpy_s(a,b,c,d) memcpy((a),(c),(d))
+// linux/macOS do not have memcpy_s/fopen_s/sprintf_s/errno_t so provide alternatives
+#if defined(__linux__) || defined(__APPLE__)
+	#define memcpy_s(a,b,c,d) (memcpy((a),(c),(d)), 0)
+	#define fopen_s(pFile, filename, mode) ((*(pFile) = fopen((filename),(mode))) == NULL)
+	#define sprintf_s(buf, size, ...) snprintf((buf),(size),__VA_ARGS__)
+	typedef int errno_t;
 #endif
 

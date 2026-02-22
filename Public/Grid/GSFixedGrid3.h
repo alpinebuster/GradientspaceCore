@@ -58,7 +58,7 @@ template<typename ElemType, int DimensionX, int DimensionY, int DimensionZ>
 class FixedGrid3 : public FixedGridBase3<DimensionX,DimensionY,DimensionZ>
 {
 public:
-	using BaseType = typename FixedGridBase3<DimensionX, DimensionY, DimensionZ>;
+	using BaseType = FixedGridBase3<DimensionX, DimensionY, DimensionZ>;
 
 	dynamic_buffer<ElemType> Data;
 

@@ -142,18 +142,18 @@ struct TransformList
 		return P;
 	}
 
-	template<typename RealType>
-	RealType SafeReciprocal(RealType Value, RealType Tolerance = RealConstants<RealType>::ZeroTolerance()) const
+	template<typename RT>
+	RT SafeReciprocal(RT Value, RT Tolerance = RealConstants<RT>::ZeroTolerance()) const
 	{
-		return (GS::Abs(Value) < Tolerance) ? (RealType)0 : ((RealType)1 / Value);
+		return (GS::Abs(Value) < Tolerance) ? (RT)0 : ((RT)1 / Value);
 	}
 
-	template<typename RealType>
-	Vector3<RealType> SafeInverseScale(const Vector3<RealType>& Scale) const
+	template<typename RT>
+	Vector3<RT> SafeInverseScale(const Vector3<RT>& Scale) const
 	{
-		RealType Determinant = Scale.X * Scale.Y * Scale.Z;
-		RealType UseSign = (Determinant < (RealType)0) ? (RealType)-1 : (RealType)1;
-		return Vector3<RealType>(Scale.Y*Scale.Z*UseSign, Scale.X*Scale.Z*UseSign, Scale.X*Scale.Y*UseSign);
+		RT Determinant = Scale.X * Scale.Y * Scale.Z;
+		RT UseSign = (Determinant < (RT)0) ? (RT)-1 : (RT)1;
+		return Vector3<RT>(Scale.Y*Scale.Z*UseSign, Scale.X*Scale.Z*UseSign, Scale.X*Scale.Y*UseSign);
 	}
 
 

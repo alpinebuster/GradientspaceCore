@@ -11,7 +11,7 @@ template<typename ElemType, int DimensionX, int DimensionY, int DimensionZ>
 class AtomicFixedGrid3 : public FixedGridBase3<DimensionX, DimensionY, DimensionZ>
 {
 public:
-	using BaseType = typename FixedGridBase3<DimensionX, DimensionY, DimensionZ>;
+	using BaseType = FixedGridBase3<DimensionX, DimensionY, DimensionZ>;
 
 	std::array<std::atomic<ElemType>, DimensionX* DimensionY* DimensionZ> Data;
 
@@ -66,7 +66,7 @@ template<int DimensionX, int DimensionY, int DimensionZ>
 class AtomicFixedFlagGrid3 : public FixedGridBase3<DimensionX, DimensionY, DimensionZ>
 {
 public:
-	using BaseType = typename FixedGridBase3<DimensionX, DimensionY, DimensionZ>;
+	using BaseType = FixedGridBase3<DimensionX, DimensionY, DimensionZ>;
 
 	std::array<std::atomic_flag, DimensionX* DimensionY* DimensionZ> Data;
 
