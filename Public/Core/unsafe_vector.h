@@ -6,6 +6,7 @@
 #include "Core/gs_allocator.h"
 #include "Core/gs_serializer.h"
 #include "Core/buffer_view.h"
+#include <iterator>
 
 namespace GS
 {
@@ -114,13 +115,23 @@ public:
 
 		// these functions are required for std::sort to be called on an unsafe_vector
 		using value_type = ValueType;
+		using difference_type = ptrdiff_t;
+		using pointer = ValueType*;
+		using reference = ValueType&;
+		using iterator_category = std::random_access_iterator_tag;
 		iterator& operator--() { m_ptr--; return *this; }
 		iterator operator--(int) { iterator tmp = *this; --(*this); return tmp; }
+		iterator& operator+=(ptrdiff_t n) { m_ptr += n; return *this; }
+		iterator& operator-=(ptrdiff_t n) { m_ptr -= n; return *this; }
+		ValueType& operator[](ptrdiff_t n) const { return m_ptr[n]; }
 		friend ptrdiff_t operator-(const iterator& lhs, const iterator& rhs) { return lhs.m_ptr - rhs.m_ptr; }
 		friend iterator operator-(iterator const& lhs, ptrdiff_t rhs) { return iterator(lhs.m_ptr - rhs); }
 		friend iterator operator+(iterator const& lhs, ptrdiff_t rhs) { return iterator(lhs.m_ptr + rhs); }
 		friend iterator operator+(ptrdiff_t lhs, iterator const& rhs) { return iterator(lhs + rhs.m_ptr); }
 		friend bool operator< (const iterator& lhs, const iterator& rhs) { return lhs.m_ptr < rhs.m_ptr; }
+		friend bool operator> (const iterator& lhs, const iterator& rhs) { return lhs.m_ptr > rhs.m_ptr; }
+		friend bool operator<=(const iterator& lhs, const iterator& rhs) { return lhs.m_ptr <= rhs.m_ptr; }
+		friend bool operator>=(const iterator& lhs, const iterator& rhs) { return lhs.m_ptr >= rhs.m_ptr; }
 
 	private:
 		ValueType* m_ptr;
